@@ -12,4 +12,14 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     assert items.first.has_key?("name")
   end
 
+  test "#show" do
+    id = Item.first.id
+
+    get :show, id: id, format: :json
+    item = JSON.parse(response.body)
+
+    assert_response :success
+    assert_equal item["id"], id
+  end
+
 end
